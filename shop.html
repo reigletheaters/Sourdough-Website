@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — Mariah's Sourdough Co.</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a href="index.html" class="brand">Mariah's <span>Sourdough Co.</span></a>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">Who We Are</a>
+        <a href="why-sourdough.html">Why Sourdough?</a>
+        <a class="cart-link" href="cart.html">Cart<span data-cart-count></span></a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="deal-banner">
+    Save automatically: <strong>2 loaves = 10% off</strong> &nbsp;•&nbsp; <strong>4 loaves = 20% off</strong>
+  </div>
+
+  <section class="container">
+    <h1 class="section-title">The Shop</h1>
+    <p class="section-sub">All loaves are 100% organic, naturally leavened, and baked the day they ship. $14 each.</p>
+
+    <div class="product-grid">
+      <article class="product-card">
+        <img class="product-img" src="classic.jpg" alt="Classic Sourdough loaf on parchment">
+        <div class="product-body">
+          <h3 class="product-name">Classic Sourdough</h3>
+          <p class="product-desc">A 36-hour cold ferment gives this loaf its trademark crackling crust and big, open crumb. Tangy, complex, and endlessly versatile.</p>
+          <div class="product-price">$14.00</div>
+          <button class="add-btn" data-product="classic">Add to cart</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=600&q=80" alt="Olive and rosemary sourdough">
+        <div class="product-body">
+          <h3 class="product-name">Olive &amp; Rosemary</h3>
+          <p class="product-desc">Brined Kalamata olives and fresh rosemary leaves baked into every slice. Mediterranean-inspired and unapologetically savory.</p>
+          <div class="product-price">$14.00</div>
+          <button class="add-btn" data-product="olive">Add to cart</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <img class="product-img" src="chocolate.jpg" alt="Sliced chocolate chip sourdough">
+        <div class="product-body">
+          <h3 class="product-name">Chocolate Chip Sourdough</h3>
+          <p class="product-desc">Generous chunks of dark chocolate folded through a lightly sweetened sourdough. Toast it, butter it, thank us later.</p>
+          <div class="product-price">$14.00</div>
+          <button class="add-btn" data-product="chocolate">Add to cart</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <img class="product-img" src="cinnamon.webp" alt="Sliced cinnamon raisin swirl sourdough">
+        <div class="product-body">
+          <h3 class="product-name">Cinnamon Raisin</h3>
+          <p class="product-desc">Plump organic raisins and a generous cinnamon swirl. Perfect with butter, or French-toasted on a slow Sunday morning.</p>
+          <div class="product-price">$14.00</div>
+          <button class="add-btn" data-product="cinnamon">Add to cart</button>
+        </div>
+      </article>
+    </div>
+
+    <h2 class="section-title" style="margin-top:64px;">Stack Up the Savings</h2>
+    <div class="deals-row">
+      <div class="deal-card">
+        <span class="pct">10% off</span>
+        <h3>2-Loaf Bundle</h3>
+        <p>Any 2 loaves — discount applied automatically in your cart.</p>
+      </div>
+      <div class="deal-card">
+        <span class="pct">20% off</span>
+        <h3>4-Loaf Bundle</h3>
+        <p>Stock up, gift a neighbor, freeze for later. Maximum savings.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    © Mariah's Sourdough Co. &nbsp;•&nbsp;
+    <a href="about.html">About</a> &nbsp;•&nbsp;
+    <a href="why-sourdough.html">Why Sourdough</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

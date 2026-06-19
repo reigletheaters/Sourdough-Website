@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart — Mariah's Sourdough Co.</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a href="index.html" class="brand">Mariah's <span>Sourdough Co.</span></a>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">Who We Are</a>
+        <a href="why-sourdough.html">Why Sourdough?</a>
+        <a class="cart-link" href="cart.html">Cart<span data-cart-count></span></a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="deal-banner">
+    <strong>2 loaves = 10% off</strong> &nbsp;•&nbsp; <strong>4 loaves = 20% off</strong> — applied automatically.
+  </div>
+
+  <section class="container">
+    <h1 class="section-title">Your Cart</h1>
+    <p class="section-sub">Review your loaves below. Discounts apply automatically based on quantity.</p>
+
+    <div id="cart-container">
+      <!-- Rendered by script.js -->
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    © Mariah's Sourdough Co. &nbsp;•&nbsp;
+    <a href="about.html">About</a> &nbsp;•&nbsp;
+    <a href="why-sourdough.html">Why Sourdough</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
