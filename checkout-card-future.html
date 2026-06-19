@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Mariah's Sourdough Co.</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a href="index.html" class="brand">Mariah's <span>Sourdough Co.</span></a>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">Who We Are</a>
+        <a href="why-sourdough.html">Why Sourdough?</a>
+        <a class="cart-link" href="cart.html">Cart<span data-cart-count></span></a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="container" id="checkout-main">
+    <h1 class="section-title">Checkout</h1>
+    <p class="section-sub">Just a couple of details and your loaves are on the way.</p>
+
+    <div class="checkout-grid">
+      <form id="checkout-form" class="checkout-form" novalidate>
+
+        <h2>Contact</h2>
+        <div class="co-row">
+          <label>
+            Email
+            <input type="email" name="email" required placeholder="you@example.com">
+          </label>
+        </div>
+        <div class="co-row two">
+          <label>
+            First name
+            <input type="text" name="firstName" required placeholder="Jane">
+          </label>
+          <label>
+            Last name
+            <input type="text" name="lastName" required placeholder="Baker">
+          </label>
+        </div>
+        <div class="co-row">
+          <label>
+            Phone
+            <input type="tel" name="phone" placeholder="(555) 123-4567">
+          </label>
+        </div>
+
+        <h2>Shipping address</h2>
+        <div class="co-row">
+          <label>
+            Street address
+            <input type="text" name="address1" required placeholder="123 Sourdough Ln">
+          </label>
+        </div>
+        <div class="co-row">
+          <label>
+            Apt / Suite (optional)
+            <input type="text" name="address2" placeholder="Unit 4B">
+          </label>
+        </div>
+        <div class="co-row three">
+          <label>
+            City
+            <input type="text" name="city" required placeholder="Portland">
+          </label>
+          <label>
+            State
+            <input type="text" name="state" required placeholder="OR" maxlength="2" style="text-transform:uppercase;">
+          </label>
+          <label>
+            ZIP
+            <input type="text" name="zip" required placeholder="97201" maxlength="10">
+          </label>
+        </div>
+
+        <h2>Payment</h2>
+        <div class="co-row">
+          <label>
+            Card number
+            <input type="text" name="card" required inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456">
+          </label>
+        </div>
+        <div class="co-row two">
+          <label>
+            Expiration
+            <input type="text" name="expiry" required inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY">
+          </label>
+          <label>
+            CVC
+            <input type="text" name="cvc" required inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="4">
+          </label>
+        </div>
+        <div class="co-row">
+          <label>
+            Name on card
+            <input type="text" name="cardName" required autocomplete="cc-name" placeholder="Jane Baker">
+          </label>
+        </div>
+
+        <label class="co-check">
+          <input type="checkbox" name="updates">
+          <span>Email me when a new bake drops (optional)</span>
+        </label>
+
+        <button type="submit" class="btn" style="width:100%; margin-top:10px; font-size:1.1rem;">
+          Place order
+        </button>
+
+        <p class="co-legal">By placing your order you agree to Mariah's Sourdough Co. terms. Your card is charged when the order ships.</p>
+      </form>
+
+      <aside id="checkout-summary" class="checkout-summary">
+        <!-- rendered by script.js -->
+      </aside>
+    </div>
+
+    <div class="co-notice">
+      <strong>A note for Mariah:</strong> This checkout form collects the order info, but it won't actually charge cards or send emails until you connect a payment processor. The fastest way to wire that up is a <a href="https://stripe.com/payments/payment-links" target="_blank" rel="noopener">Stripe Payment Link</a> (no coding required) or a full Stripe Checkout integration if you want dynamic pricing with the 2-for-10% / 4-for-20% bundles. I've left the form exactly where a real processor would drop in — ask and I'll walk you through it.
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    © Mariah's Sourdough Co. &nbsp;•&nbsp;
+    <a href="about.html">About</a> &nbsp;•&nbsp;
+    <a href="why-sourdough.html">Why Sourdough</a> &nbsp;•&nbsp;
+    <a href="shop.html">Shop</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

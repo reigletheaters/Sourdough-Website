@@ -5,6 +5,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout — Mariah's Sourdough Co.</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .venmo-box {
+      background: #fffdf4;
+      border: 1.5px solid var(--crust);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      margin-top: 8px;
+    }
+    .venmo-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0e6d2;
+    }
+    .venmo-row:last-of-type { border-bottom: none; }
+    .venmo-label { font-size: 0.85rem; color: #6b5a45; font-weight: 600; }
+    .venmo-value {
+      font-family: Georgia, serif;
+      font-size: 1.25rem;
+      color: var(--cocoa);
+      font-weight: bold;
+    }
+    .venmo-amount-value { color: var(--terracotta); font-size: 1.5rem; }
+    .copy-btn {
+      background: var(--cocoa);
+      color: var(--crust);
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .copy-btn:hover { background: #56402a; }
+    .open-venmo-btn {
+      display: inline-block;
+      width: 100%;
+      background: #008CFF;
+      color: #fff !important;
+      border: none;
+      padding: 14px 22px;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      margin: 14px 0 0;
+      transition: background .15s ease;
+    }
+    .open-venmo-btn:hover { background: #006fcc; text-decoration: none; }
+    .venmo-instructions {
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: var(--soft);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--cocoa);
+      line-height: 1.5;
+    }
+    .venmo-instructions ol { margin: 8px 0 0; padding-left: 22px; }
+    .venmo-instructions li { margin-bottom: 4px; }
+    .local-note {
+      font-size: 0.85rem;
+      color: #8a7960;
+      margin-top: 8px;
+      font-style: italic;
+    }
+    .submit-error {
+      background: #fff0f0;
+      border: 1px solid #d06a6a;
+      color: #8a2a2a;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: 0.9rem;
+      display: none;
+    }
+    .submit-error.show { display: block; }
+  </style>
 </head>
 <body>
 
@@ -23,106 +105,79 @@
 
   <section class="container" id="checkout-main">
     <h1 class="section-title">Checkout</h1>
-    <p class="section-sub">Just a couple of details and your loaves are on the way.</p>
+    <p class="section-sub">Just your name and number, then pay with Venmo. We'll deliver locally — no shipping needed.</p>
 
     <div class="checkout-grid">
-      <form id="checkout-form" class="checkout-form" novalidate>
+      <form id="venmo-order-form" class="checkout-form" novalidate
+            action="https://formspree.io/f/xbdenaoj" method="POST">
 
-        <h2>Contact</h2>
+        <h2>Your info</h2>
         <div class="co-row">
-          <label>
-            Email
-            <input type="email" name="email" required placeholder="you@example.com">
-          </label>
-        </div>
-        <div class="co-row two">
-          <label>
-            First name
-            <input type="text" name="firstName" required placeholder="Jane">
-          </label>
-          <label>
-            Last name
-            <input type="text" name="lastName" required placeholder="Baker">
+          <label>Full name
+            <input type="text" name="full_name" required placeholder="Jane Baker">
           </label>
         </div>
         <div class="co-row">
-          <label>
-            Phone
-            <input type="tel" name="phone" placeholder="(555) 123-4567">
+          <label>Phone number
+            <input type="tel" name="phone" required placeholder="(555) 123-4567">
           </label>
+          <p class="local-note">We'll text you to confirm the order and arrange drop-off.</p>
         </div>
 
-        <h2>Shipping address</h2>
-        <div class="co-row">
-          <label>
-            Street address
-            <input type="text" name="address1" required placeholder="123 Sourdough Ln">
-          </label>
-        </div>
-        <div class="co-row">
-          <label>
-            Apt / Suite (optional)
-            <input type="text" name="address2" placeholder="Unit 4B">
-          </label>
-        </div>
-        <div class="co-row three">
-          <label>
-            City
-            <input type="text" name="city" required placeholder="Portland">
-          </label>
-          <label>
-            State
-            <input type="text" name="state" required placeholder="OR" maxlength="2" style="text-transform:uppercase;">
-          </label>
-          <label>
-            ZIP
-            <input type="text" name="zip" required placeholder="97201" maxlength="10">
-          </label>
+        <h2>Pay with Venmo</h2>
+
+        <div class="venmo-box">
+          <div class="venmo-row">
+            <div>
+              <div class="venmo-label">Send this much</div>
+              <div class="venmo-value venmo-amount-value" id="amount-display">$0.00</div>
+            </div>
+          </div>
+
+          <div class="venmo-row">
+            <div>
+              <div class="venmo-label">To this Venmo handle</div>
+              <div class="venmo-value" id="pay-handle">@MariahsSourdough</div>
+            </div>
+            <button type="button" class="copy-btn" onclick="copyText('pay-handle', this)">Copy</button>
+          </div>
+
+          <a class="open-venmo-btn" href="https://venmo.com/u/MariahsSourdough" target="_blank" rel="noopener">Open Venmo →</a>
+
+          <div class="venmo-instructions">
+            <strong>How it works:</strong>
+            <ol>
+              <li>Tap <strong>Open Venmo</strong> above (it'll take you straight to Mariah's profile)</li>
+              <li>Send the amount shown</li>
+              <li>Come back here and tap "I've sent it" below</li>
+              <li>Mariah will text you to confirm and arrange delivery</li>
+            </ol>
+          </div>
         </div>
 
-        <h2>Payment</h2>
-        <div class="co-row">
-          <label>
-            Card number
-            <input type="text" name="card" required inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456">
-          </label>
-        </div>
-        <div class="co-row two">
-          <label>
-            Expiration
-            <input type="text" name="expiry" required inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY">
-          </label>
-          <label>
-            CVC
-            <input type="text" name="cvc" required inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="4">
-          </label>
-        </div>
-        <div class="co-row">
-          <label>
-            Name on card
-            <input type="text" name="cardName" required autocomplete="cc-name" placeholder="Jane Baker">
-          </label>
+        <input type="hidden" name="order_items" id="hidden-order-items">
+        <input type="hidden" name="order_subtotal" id="hidden-subtotal">
+        <input type="hidden" name="order_discount" id="hidden-discount">
+        <input type="hidden" name="order_total" id="hidden-total">
+        <input type="hidden" name="loaf_count" id="hidden-count">
+        <input type="hidden" name="_subject" value="New sourdough order">
+
+        <div class="submit-error" id="submit-error">
+          Something went wrong submitting your order. Please try again, or text Mariah directly.
         </div>
 
-        <label class="co-check">
-          <input type="checkbox" name="updates">
-          <span>Email me when a new bake drops (optional)</span>
-        </label>
-
-        <button type="submit" class="btn" style="width:100%; margin-top:10px; font-size:1.1rem;">
-          Place order
+        <button type="submit" id="submit-btn" class="btn" style="width:100%; margin-top:14px; font-size:1.05rem;">
+          I've sent payment — submit order
         </button>
 
-        <p class="co-legal">By placing your order you agree to Mariah's Sourdough Co. terms. Your card is charged when the order ships.</p>
+        <p class="co-legal">Your order isn't confirmed until Mariah has verified the payment. She'll text you within a few hours.</p>
       </form>
 
-      <aside id="checkout-summary" class="checkout-summary">
-        <!-- rendered by script.js -->
+      <aside class="checkout-summary" id="order-summary">
+        <h2>Order Summary</h2>
+        <div class="co-lines" id="summary-lines"></div>
+        <div class="co-totals" id="summary-totals"></div>
       </aside>
-    </div>
-
-    <div class="co-notice">
-      <strong>A note for Mariah:</strong> This checkout form collects the order info, but it won't actually charge cards or send emails until you connect a payment processor. The fastest way to wire that up is a <a href="https://stripe.com/payments/payment-links" target="_blank" rel="noopener">Stripe Payment Link</a> (no coding required) or a full Stripe Checkout integration if you want dynamic pricing with the 2-for-10% / 4-for-20% bundles. I've left the form exactly where a real processor would drop in — ask and I'll walk you through it.
     </div>
   </section>
 
@@ -134,5 +189,149 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = original; }, 1200);
+      });
+    }
+
+    function renderVenmoCheckout() {
+      const cart = getCart();
+      const ids = Object.keys(cart);
+      const main = document.getElementById('checkout-main');
+
+      if (ids.length === 0) {
+        main.innerHTML = `
+          <div class="empty-cart" style="text-align:center; padding:60px 20px;">
+            <h2>Your cart is empty</h2>
+            <p>Nothing to check out yet!</p>
+            <a class="btn" href="shop.html">Browse loaves</a>
+          </div>`;
+        return;
+      }
+
+      const totals = cartTotals(cart);
+
+      // Render order summary sidebar
+      let itemsHtml = '';
+      let orderItemsText = '';
+      ids.forEach(id => {
+        const p = PRODUCTS[id];
+        if (!p) return;
+        const qty = cart[id];
+        itemsHtml += `
+          <div class="co-line">
+            <img src="${p.img}" alt="${p.name}">
+            <div class="co-line-body">
+              <div class="co-line-name">${p.name}</div>
+              <div class="co-line-qty">Qty ${qty} × $${p.price.toFixed(2)}</div>
+            </div>
+            <div class="co-line-total">$${(p.price * qty).toFixed(2)}</div>
+          </div>`;
+        orderItemsText += `${p.name} × ${qty} = $${(p.price * qty).toFixed(2)}\n`;
+      });
+      document.getElementById('summary-lines').innerHTML = itemsHtml;
+
+      let totalsHtml = `
+        <div class="row"><span>Loaves</span><span>${totals.count}</span></div>
+        <div class="row"><span>Subtotal</span><span>$${totals.subtotal.toFixed(2)}</span></div>`;
+      if (totals.rate > 0) {
+        totalsHtml += `<div class="row discount"><span>Discount (${(totals.rate * 100).toFixed(0)}% off)</span><span>−$${totals.discount.toFixed(2)}</span></div>`;
+      }
+      totalsHtml += `
+        <div class="row"><span>Delivery</span><span>$0.00</span></div>
+        <div class="row total"><span>Total</span><span>$${totals.total.toFixed(2)}</span></div>`;
+      document.getElementById('summary-totals').innerHTML = totalsHtml;
+
+      // Update the Venmo amount display
+      document.getElementById('amount-display').textContent = `$${totals.total.toFixed(2)}`;
+
+      // Pre-fill hidden inputs that will go to Formspree
+      document.getElementById('hidden-order-items').value = orderItemsText.trim();
+      document.getElementById('hidden-subtotal').value = `$${totals.subtotal.toFixed(2)}`;
+      document.getElementById('hidden-discount').value = totals.rate > 0
+        ? `${(totals.rate * 100).toFixed(0)}% off (−$${totals.discount.toFixed(2)})`
+        : 'none';
+      document.getElementById('hidden-total').value = `$${totals.total.toFixed(2)}`;
+      document.getElementById('hidden-count').value = totals.count;
+    }
+
+    function wireVenmoForm() {
+      const form = document.getElementById('venmo-order-form');
+      if (!form) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('submit-btn');
+        const errorBox = document.getElementById('submit-error');
+        errorBox.classList.remove('show');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        const data = new FormData(form);
+
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (response.ok) {
+            showOrderConfirmation(
+              data.get('full_name') || 'friend',
+              data.get('order_total') || '',
+              data.get('loaf_count') || ''
+            );
+            clearCart();
+          } else {
+            const errData = await response.json().catch(() => ({}));
+            errorBox.textContent = (errData.error || 'Something went wrong submitting your order. Please try again, or text Mariah directly.');
+            errorBox.classList.add('show');
+            submitBtn.disabled = false;
+            submitBtn.textContent = "I've sent payment — submit order";
+          }
+        } catch (err) {
+          errorBox.textContent = 'Network error — please check your connection and try again.';
+          errorBox.classList.add('show');
+          submitBtn.disabled = false;
+          submitBtn.textContent = "I've sent payment — submit order";
+        }
+      });
+    }
+
+    function showOrderConfirmation(name, total, count) {
+      const main = document.getElementById('checkout-main');
+      main.innerHTML = `
+        <div class="co-success">
+          <div class="co-success-icon">✓</div>
+          <h1>Order received!</h1>
+          <p class="co-success-sub">Thanks, ${escapeHtml(name)}. We've got your order for <strong>${escapeHtml(count)} loaf${count == 1 ? '' : 'es'}</strong> totaling <strong>${escapeHtml(total)}</strong>.</p>
+          <p>Mariah will text you within a few hours to confirm the Venmo payment came through and to arrange a delivery time.</p>
+          <a class="btn" href="index.html">Back to home</a>
+          &nbsp;
+          <a class="btn secondary" href="shop.html">Keep shopping</a>
+        </div>`;
+      updateCartBadge();
+    }
+
+    function escapeHtml(str) {
+      if (str == null) return '';
+      return String(str).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[c]);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderVenmoCheckout();
+      wireVenmoForm();
+    });
+  </script>
+
 </body>
 </html>
