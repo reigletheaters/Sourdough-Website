@@ -117,12 +117,6 @@
             <input type="text" name="full_name" required placeholder="Jane Baker">
           </label>
         </div>
-        <div class="co-row">
-          <label>Phone number
-            <input type="tel" name="phone" required placeholder="(555) 123-4567">
-          </label>
-          <p class="local-note">We'll text you to confirm the order and arrange drop-off.</p>
-        </div>
 
         <h2>Pay with Venmo</h2>
 
@@ -150,7 +144,7 @@
               <li>Tap <strong>Open Venmo</strong> above (it'll take you straight to Mariah's profile)</li>
               <li>Send the amount shown</li>
               <li>Come back here and tap "I've sent it" below</li>
-              <li>Mariah will text you to confirm and arrange delivery</li>
+              <li>Mariah will text you to confirm</li>
             </ol>
           </div>
         </div>
@@ -312,7 +306,7 @@
           <div class="co-success-icon">✓</div>
           <h1>Order received!</h1>
           <p class="co-success-sub">Thanks, ${escapeHtml(name)}. We've got your order for <strong>${escapeHtml(count)} loaf${count == 1 ? '' : 'es'}</strong> totaling <strong>${escapeHtml(total)}</strong>.</p>
-          <p>Mariah will text you within a few hours to confirm the Venmo payment came through and to arrange a delivery time.</p>
+          <p>Mariah will text you within a few hours to confirm the Venmo payment came through.</p>
           <a class="btn" href="index.html">Back to home</a>
           &nbsp;
           <a class="btn secondary" href="shop.html">Keep shopping</a>
